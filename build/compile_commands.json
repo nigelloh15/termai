@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/Users/nigelloh/Documents/Code/Projects/terminalai/build",
+  "command": "/usr/bin/c++  -I/Users/nigelloh/Documents/Code/Projects/terminalai/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks  -arch arm64 -o CMakeFiles/terminalai.dir/src/main.cpp.o -c /Users/nigelloh/Documents/Code/Projects/terminalai/src/main.cpp",
+  "file": "/Users/nigelloh/Documents/Code/Projects/terminalai/src/main.cpp",
+  "output": "CMakeFiles/terminalai.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/nigelloh/Documents/Code/Projects/terminalai/build",
+  "command": "/usr/bin/cc  -I/Users/nigelloh/Documents/Code/Projects/terminalai/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks  -arch arm64 -o CMakeFiles/terminalai.dir/src/glad.c.o -c /Users/nigelloh/Documents/Code/Projects/terminalai/src/glad.c",
+  "file": "/Users/nigelloh/Documents/Code/Projects/terminalai/src/glad.c",
+  "output": "CMakeFiles/terminalai.dir/src/glad.c.o"
+}
+]

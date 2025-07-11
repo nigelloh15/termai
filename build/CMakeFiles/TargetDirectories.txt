@@ -1,0 +1,3 @@
+/Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles/terminalai.dir
+/Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles/edit_cache.dir
+/Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles/rebuild_cache.dir
