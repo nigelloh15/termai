@@ -3,19 +3,19 @@
 
 # compile C with /usr/bin/cc
 # compile CXX with /usr/bin/c++
-C_DEFINES = 
+C_DEFINES = -DGL_SILENCE_DEPRECATION
 
-C_INCLUDES = -I/Users/nigelloh/Documents/Code/Projects/terminalai/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
+C_INCLUDES = -I/Users/nigelloh/Documents/Code/Projects/terminalai/include -I/Users/nigelloh/Documents/Code/Projects/terminalai/include/imgui -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
 
 C_FLAGSarm64 =  -arch arm64
 
 C_FLAGS =  -arch arm64
 
-CXX_DEFINES = 
+CXX_DEFINES = -DGL_SILENCE_DEPRECATION
 
-CXX_INCLUDES = -I/Users/nigelloh/Documents/Code/Projects/terminalai/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
+CXX_INCLUDES = -I/Users/nigelloh/Documents/Code/Projects/terminalai/include -I/Users/nigelloh/Documents/Code/Projects/terminalai/include/imgui -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
 
-CXX_FLAGSarm64 =  -arch arm64
+CXX_FLAGSarm64 = -std=gnu++17 -arch arm64
 
-CXX_FLAGS =  -arch arm64
+CXX_FLAGS = -std=gnu++17 -arch arm64
 

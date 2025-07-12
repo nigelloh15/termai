@@ -85,12 +85,12 @@ clean: CMakeFiles/terminalai.dir/clean
 CMakeFiles/terminalai.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminalai.dir/build.make CMakeFiles/terminalai.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminalai.dir/build.make CMakeFiles/terminalai.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles --progress-num=1,2,3 "Built target terminalai"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target terminalai"
 .PHONY : CMakeFiles/terminalai.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/terminalai.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/terminalai.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles 0
 .PHONY : CMakeFiles/terminalai.dir/rule
@@ -102,7 +102,7 @@ terminalai: CMakeFiles/terminalai.dir/rule
 # codegen rule for target.
 CMakeFiles/terminalai.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminalai.dir/build.make CMakeFiles/terminalai.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target terminalai"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/nigelloh/Documents/Code/Projects/terminalai/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Finished codegen for target terminalai"
 .PHONY : CMakeFiles/terminalai.dir/codegen
 
 # clean rule for target.
