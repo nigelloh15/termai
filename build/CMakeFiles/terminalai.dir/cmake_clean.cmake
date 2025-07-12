@@ -17,6 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/terminalai.dir/src/imgui/imgui_widgets.cpp.o.d"
   "CMakeFiles/terminalai.dir/src/main.cpp.o"
   "CMakeFiles/terminalai.dir/src/main.cpp.o.d"
+  "CMakeFiles/terminalai.dir/src/shell/shell.cpp.o"
+  "CMakeFiles/terminalai.dir/src/shell/shell.cpp.o.d"
   "terminalai.app/Contents/MacOS/terminalai"
   "terminalai.pdb"
 )

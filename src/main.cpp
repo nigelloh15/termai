@@ -2,11 +2,13 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
+#include "shell/shell.h"
+
 #include <GLFW/glfw3.h>
 #include <stdio.h>
-
-#ifdef __APPLE__
-#endif
+#include <vector>
+#include <string>
+#include <cstring> // for strlen
 
 void glfw_error_callback(int error, const char* description) {
     fprintf(stderr, "GLFW Error %d: %s\n", error, description);
@@ -36,6 +38,22 @@ int main() {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
+    // Input buffer
+    int buf_size = 1024;
+    char* buf = new char[buf_size];
+    buf[0] = '\0';
+
+    // Flags for input focus and scrolling
+    bool should_refocus = true;
+    bool scroll_to_bottom = false;
+
+    // Start the shell process
+    if (!start_shell()) {
+        fprintf(stderr, "Failed to start shell process!\n");
+        return 1;
+    }
+
+    // Main Loop
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 
@@ -43,16 +61,14 @@ int main() {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        // Get the size of the framebuffer (window in pixels)
         int display_w, display_h;
         glfwGetFramebufferSize(window, &display_w, &display_h);
 
-        // Make a fullscreen window that looks like the main UI
         ImGui::SetNextWindowPos(ImVec2(0, 0));
         ImGui::SetNextWindowSize(ImVec2((float)display_w, (float)display_h));
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);  // No rounded corners
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-        ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.10f, 0.10f, 0.10f, 1.00f)); // dark background
+        ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.10f, 0.10f, 0.10f, 1.00f));
 
         ImGuiWindowFlags window_flags =
             ImGuiWindowFlags_NoTitleBar |
@@ -64,18 +80,44 @@ int main() {
             ImGuiWindowFlags_NoSavedSettings |
             ImGuiWindowFlags_NoBringToFrontOnFocus;
 
-        ImGui::Begin("MainUI", nullptr, window_flags);
+        ImGui::Begin("Main", nullptr, window_flags);
 
-        // Place your full UI here
-        ImGui::Text("Welcome to the main ImGui window!");
-        ImGui::Button("Click Me");
+        ImGui::PushItemWidth(-FLT_MIN);
 
+        // Display shell output from shell.cpp thread-safe buffer
+        std::vector<std::string> messages = get_shell_output();
+
+        ImGui::BeginChild("MessageRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), true, ImGuiWindowFlags_AlwaysVerticalScrollbar);
+
+        for (const auto& msg : messages) {
+            ImGui::TextWrapped("%s", msg.c_str());
+        }
+
+        if (scroll_to_bottom)
+            ImGui::SetScrollHereY(1.0f);
+
+        ImGui::EndChild();
+
+        // Input box: when Enter pressed, send input to shell
+        if (should_refocus)
+            ImGui::SetKeyboardFocusHere();
+
+        if (ImGui::InputText("##Input", buf, buf_size, ImGuiInputTextFlags_EnterReturnsTrue)) {
+            if (strlen(buf) > 0) {
+                write_to_shell(std::string(buf));
+                buf[0] = '\0';
+                scroll_to_bottom = true;
+            }
+        } else {
+            scroll_to_bottom = false;
+        }
+
+        ImGui::PopItemWidth();
         ImGui::End();
 
         ImGui::PopStyleVar(2);
         ImGui::PopStyleColor();
 
-        // Rendering
         ImGui::Render();
         glViewport(0, 0, display_w, display_h);
         glClearColor(0.10f, 0.10f, 0.10f, 1.00f);
@@ -85,12 +127,18 @@ int main() {
         glfwSwapBuffers(window);
     }
 
-    // Cleanup
+    // Cleanup shell
+    stop_shell();
+
+    // Cleanup ImGui & GLFW
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
     glfwDestroyWindow(window);
     glfwTerminate();
+
+    delete[] buf;
+
     return 0;
 }

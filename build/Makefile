@@ -352,6 +352,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminalai.dir/build.make CMakeFiles/terminalai.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/shell/shell.o: src/shell/shell.cpp.o
+.PHONY : src/shell/shell.o
+
+# target to build an object file
+src/shell/shell.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminalai.dir/build.make CMakeFiles/terminalai.dir/src/shell/shell.cpp.o
+.PHONY : src/shell/shell.cpp.o
+
+src/shell/shell.i: src/shell/shell.cpp.i
+.PHONY : src/shell/shell.i
+
+# target to preprocess a source file
+src/shell/shell.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminalai.dir/build.make CMakeFiles/terminalai.dir/src/shell/shell.cpp.i
+.PHONY : src/shell/shell.cpp.i
+
+src/shell/shell.s: src/shell/shell.cpp.s
+.PHONY : src/shell/shell.s
+
+# target to generate assembly for a file
+src/shell/shell.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminalai.dir/build.make CMakeFiles/terminalai.dir/src/shell/shell.cpp.s
+.PHONY : src/shell/shell.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -389,6 +413,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/shell/shell.o"
+	@echo "... src/shell/shell.i"
+	@echo "... src/shell/shell.s"
 .PHONY : help
 
 

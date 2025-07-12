@@ -24,6 +24,7 @@ set(IMGUI_SOURCES
 add_executable(${PROJECT_NAME} MACOSX_BUNDLE 
     src/main.cpp
     src/glad.c
+    src/shell/shell.cpp
     ${IMGUI_SOURCES}
 )
 

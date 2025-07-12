@@ -17,6 +17,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/nigelloh/Documents/Code/Projects/terminalai/src/imgui/imgui_tables.cpp" "CMakeFiles/terminalai.dir/src/imgui/imgui_tables.cpp.o" "gcc" "CMakeFiles/terminalai.dir/src/imgui/imgui_tables.cpp.o.d"
   "/Users/nigelloh/Documents/Code/Projects/terminalai/src/imgui/imgui_widgets.cpp" "CMakeFiles/terminalai.dir/src/imgui/imgui_widgets.cpp.o" "gcc" "CMakeFiles/terminalai.dir/src/imgui/imgui_widgets.cpp.o.d"
   "/Users/nigelloh/Documents/Code/Projects/terminalai/src/main.cpp" "CMakeFiles/terminalai.dir/src/main.cpp.o" "gcc" "CMakeFiles/terminalai.dir/src/main.cpp.o.d"
+  "/Users/nigelloh/Documents/Code/Projects/terminalai/src/shell/shell.cpp" "CMakeFiles/terminalai.dir/src/shell/shell.cpp.o" "gcc" "CMakeFiles/terminalai.dir/src/shell/shell.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
