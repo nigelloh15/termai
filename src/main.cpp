@@ -9,6 +9,9 @@
 #include <vector>
 #include <string>
 #include <cstring> // for strlen
+#include <mutex>   // for locking
+
+extern std::mutex output_mutex; // needed for thread-safe access to shell_output
 
 void glfw_error_callback(int error, const char* description) {
     fprintf(stderr, "GLFW Error %d: %s\n", error, description);
@@ -43,17 +46,19 @@ int main() {
     char* buf = new char[buf_size];
     buf[0] = '\0';
 
-    // Flags for input focus and scrolling
     bool should_refocus = true;
     bool scroll_to_bottom = false;
 
-    // Start the shell process
     if (!start_shell()) {
         fprintf(stderr, "Failed to start shell process!\n");
         return 1;
     }
 
-    // Main Loop
+    if (!init_python()) {
+        fprintf(stderr, "Failed to initialize Python!\n");
+        return 1;
+    }
+
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 
@@ -81,15 +86,17 @@ int main() {
             ImGuiWindowFlags_NoBringToFrontOnFocus;
 
         ImGui::Begin("Main", nullptr, window_flags);
-
         ImGui::PushItemWidth(-FLT_MIN);
 
-        // Display shell output from shell.cpp thread-safe buffer
-        std::vector<std::string> messages = get_shell_output();
+        // Lock before accessing shared buffer
+        std::vector<std::string>* messages;
+        {
+            messages = get_shell_output();
+        }
 
         ImGui::BeginChild("MessageRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), true, ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
-        for (const auto& msg : messages) {
+        for (const auto& msg : *messages) {
             ImGui::TextWrapped("%s", msg.c_str());
         }
 
@@ -98,13 +105,28 @@ int main() {
 
         ImGui::EndChild();
 
-        // Input box: when Enter pressed, send input to shell
         if (should_refocus)
             ImGui::SetKeyboardFocusHere();
 
         if (ImGui::InputText("##Input", buf, buf_size, ImGuiInputTextFlags_EnterReturnsTrue)) {
             if (strlen(buf) > 0) {
-                write_to_shell(std::string(buf));
+                std::string input(buf);
+
+                if (input.rfind("/help", 0) == 0) {
+                    std::string command = input.substr(5);
+                    while (!command.empty() && command.front() == ' ')
+                        command.erase(0, 1);
+
+                    std::string response = getResponse(command);
+                    {
+                        get_shell_output()->push_back("> " + input);
+                        get_shell_output()->push_back("AI: " + response);
+                    }
+
+                } else {
+                    write_to_shell(input);
+                }
+
                 buf[0] = '\0';
                 scroll_to_bottom = true;
             }
@@ -127,10 +149,9 @@ int main() {
         glfwSwapBuffers(window);
     }
 
-    // Cleanup shell
     stop_shell();
+    finalize_python();
 
-    // Cleanup ImGui & GLFW
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
